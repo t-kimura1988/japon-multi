@@ -1,0 +1,47 @@
+doma:
+  dialect: POSTGRES
+  sql-file-reposiotry: GREEDY_CACHE
+  naming: SNAKE_UPPER_CASE
+  max-rows: 1000
+  exception-sql-log-type: FORMATTED
+
+logging:
+  level:
+    root: INFO
+
+---
+spring:
+  datasource:
+    url: ${JAPON_DB_URL}
+    username: ${JAPON_DB_USERNAME}
+    password: ${JAPON_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 30000
+      minimum-idle: 2
+      maximum-pool-size: 100
+      connection-test-query: SELECT 1
+      connection-init-sql: SELECT 1
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://securetoken.google.com/${JAPON_FIREBASE_PROJECT_ID}
+          jwk-set-uri: https://www.googleapis.com/robot/v1/metadata/jwk/securetoken@system.gserviceaccount.com
+
+firebase:
+  credentials:
+    type: ${JAPON_FIREBASE_TYPE}
+    projectId: ${JAPON_FIREBASE_PROJECT_ID}
+    privateKeyId: ${JAPON_FIREBASE_PRIVATE_KEY_ID}
+    privateKey: ${JAPON_FIREBASE_PRIVATE_KEY}
+    clientEmail: ${JAPON_FIREBASE_CLIENT_EMAIL}
+    clientId: ${JAPON_FIREBASE_CLIENT_ID}
+    clientX509CertUrl: ${JAPON_FIREBASE_CLIENT_X509_CER_URL}
+
+api:
+  apiKey:
+    spocIos: ${API_KEY_VALUE_IOS}
